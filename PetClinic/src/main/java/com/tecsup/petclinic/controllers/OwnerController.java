@@ -20,7 +20,7 @@ import com.tecsup.petclinic.services.OwnerService;
 @RestController
 public class OwnerController {
 	
-	
+
 	@Autowired
 	private OwnerService service;
 	
@@ -42,5 +42,42 @@ public class OwnerController {
 	}
 	
 	
+
+	
+	@PostMapping("/owners")
+	@ResponseStatus(HttpStatus.CREATED)
+	Owner create(@RequestBody OwnerDTO newOwner) {
+		
+		Owner owner = new Owner();
+		owner.setFirst_name(newOwner.getFirst_name());
+		owner.setLast_name(newOwner.getLast_name());
+		owner.setCity(newOwner.getCity());
+		return service.create(owner);
+	}
+	
+	@GetMapping("/owners/{id}")
+	ResponseEntity<Owner> findOne(@PathVariable Long id){
+		try {
+			return new ResponseEntity<>(service.findById(id),HttpStatus.OK);
+			
+		}catch (OwnerNotFoundException e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			// TODO: handle exception
+		}
+	}
+	
+	
+	@DeleteMapping("/owners/{id}")
+	ResponseEntity<String> delete(@PathVariable Long id){
+		try {
+			service.delete(id);
+			return new ResponseEntity<>(""+id,HttpStatus.OK);
+			
+		}catch (OwnerNotFoundException e) {
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+			// TODO: handle exception
+		}
+	}
 	
 }
+
