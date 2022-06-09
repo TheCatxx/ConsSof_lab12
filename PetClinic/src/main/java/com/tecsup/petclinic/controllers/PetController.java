@@ -28,11 +28,7 @@ public class PetController {
 	@Autowired
 	private PetService service;
 	 
-	/**
-	 * 
-	 * @return
-	 */
-	// @JsonIgnore
+	
 	@GetMapping("/pets")
 	public Iterable<Pet> getPets() {
 		//
