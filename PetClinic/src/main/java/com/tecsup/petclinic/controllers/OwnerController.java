@@ -24,7 +24,10 @@ public class OwnerController {
 	@Autowired
 	private OwnerService service;
 	
-	
+	@GetMapping("/owners")
+	public Iterable<Owner> getOwners(){
+		return service.findAll();
+	}
 	
 	@PutMapping("/owners/{id}")
 	Owner saveOrUpdate(@RequestBody OwnerDTO newOwner, @PathVariable Long id) {

@@ -51,10 +51,30 @@ public class OwnerControllerTest {
 		.andExpect(jsonPath("$[0].id", is(ID_FIRST)));
 	}
 	
+	@Test
+	public void testFindOwnerOk() throws Exception{
+		int ID_SEARCH = 1;
+		String FIRST_NAME = "George";
+		String LAST_NAME = "Franklin";
+		String CITY  = "Madison";
+		
+		mockMvc.perform(get("/owners/"+ID_SEARCH))
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.id", is(1)))
+		.andExpect(jsonPath("$.first_name", is(FIRST_NAME)))
+		.andExpect(jsonPath("$.last_name", is(LAST_NAME)))
+		.andExpect(jsonPath("$.CITY", is(CITY)));
+		
+	}
 	
-	
-	
-
+	@Test
+	public void testFindOwnerKO()  throws Exception{
+		int ID_SEARCH = 1;
+		mockMvc.perform(get("/owners/"+ID_SEARCH))
+		.andExpect(status().isNotFound());
+		
+	}
 	
 	@Test
 	public void testCreateOwner() throws Exception{
