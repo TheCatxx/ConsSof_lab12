@@ -5,9 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity(name = "owners")
-
 public class Owner {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +31,7 @@ public class Owner {
 	public Owner(String first_name, String last_name,  String city) {
 		super();
 		this.first_name = first_name;
-		this.last_name  = last_name;
+		this.last_name = last_name;
 		this.city = city;
 		
 	}
